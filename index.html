@@ -93,9 +93,18 @@
         x: Math.floor(Math.random() * tileCount),
         y: Math.floor(Math.random() * tileCount)
     };
-} else {
-    snake.pop();
+} else {snake.pop();}
+
+for (let i = 0; i < snake.length; i++) {
+    // tarkista snake[i]
+    if (newHead.x === snake[i].x && newHead.y === snake[i].y) {
+        clearInterval(gameInterval); 
+        gameOver = true; 
+        return;
+    }
 }
+
+
 snake.unshift(newHead);
 
         drawGame();
