@@ -49,13 +49,42 @@
                 gridSize, gridSize
             );
 
-            ctx.fillStyle = "black";
             for (const segment of snake) {
-                ctx.fillRect(
+    ctx.fillStyle = "Green";
+    ctx.fillRect(
                     segment.x * gridSize,
                     segment.y * gridSize,
                     gridSize, gridSize
                 );
+                if (segment === snake[0]) {
+                    ctx.fillStyle = "White";
+                    if(direction.x === 1) {
+                        ctx.fillRect(segment.x * gridSize + 14, segment.y * gridSize + 4, 3, 3);
+                        ctx.fillRect(segment.x * gridSize + 14, segment.y * gridSize + 13, 3, 3);
+                    } else if (direction.x === -1) {
+                        ctx.fillRect(segment.x * gridSize + 3, segment.y * gridSize + 4, 3, 3);
+                        ctx.fillRect(segment.x * gridSize + 3, segment.y * gridSize + 13, 3, 3);
+                    } else if (direction.y === -1) {
+                        ctx.fillRect(segment.x * gridSize + 4, segment.y * gridSize + 3, 3, 3);
+                        ctx.fillRect(segment.x * gridSize + 13, segment.y * gridSize + 3, 3, 3);
+                    } else if (direction.y === 1) {
+                        ctx.fillRect(segment.x * gridSize + 4, segment.y * gridSize + 14, 3, 3);
+                        ctx.fillRect(segment.x * gridSize + 13, segment.y * gridSize + 14, 3, 3);
+                    }   
+                    if (direction.x === 1) {
+                        ctx.fillStyle = "red";
+                        ctx.fillRect(segment.x * gridSize + gridSize, segment.y * gridSize + 9, 5, 2);
+                    } else if (direction.x === -1) {
+                        ctx.fillStyle = "red";
+                        ctx.fillRect(segment.x * gridSize - 5, segment.y * gridSize + 9, 5, 2);
+                    } else if (direction.y === -1) {
+                        ctx.fillStyle = "red";
+                        ctx.fillRect(segment.x * gridSize + 9, segment.y * gridSize - 5, 2, 5);
+                    } else if (direction.y === 1) {
+                        ctx.fillStyle = "red";
+                        ctx.fillRect(segment.x * gridSize + 9, segment.y * gridSize + gridSize, 2, 5);
+                    }      
+    }
             }
              document.getElementById("info").textContent =
     `Pisteet: ${score}`;
