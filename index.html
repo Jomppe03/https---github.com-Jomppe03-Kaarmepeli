@@ -33,6 +33,8 @@
         let direction = { x: 1, y: 0 };
         let food = { x: 15, y: 15 };
         let score = 0;
+        let gameOver = false;
+        let gameInterval;
 
         // ===== DRAWING =====
         const drawGame = () => {
@@ -58,7 +60,8 @@
 
         drawGame();
         document.addEventListener("keydown", function(event){
-            if (event.key === "ArrowUp" && direction.y === 0) {
+            if (gameOver) return;
+            else if (event.key === "ArrowUp" && direction.y === 0) {
                 direction = { x: 0, y: -1 };
             } else if (event.key === "ArrowDown" && direction.y === 0) {
                 direction = { x: 0, y: 1 };
@@ -79,6 +82,11 @@
             x: head.x + direction.x,
             y: head.y + direction.y
         };
+        if(newHead.x < 0 || newHead.x >= tileCount || newHead.y < 0 || newHead.y >= tileCount){
+            clearInterval(gameInterval); 
+            gameOver = true; 
+            return;}
+    
         const ateFood = newHead.x === food.x && newHead.y === food.y;
         if (ateFood) {
     score++; food = {
@@ -93,7 +101,7 @@ snake.unshift(newHead);
         drawGame();
     }
 
-    setInterval(moveSnake, 150);
+    gameInterval = setInterval(moveSnake, 150);
 
         // ===================================
         // BUILD THE GAME FROM HERE
