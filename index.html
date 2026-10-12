@@ -79,6 +79,21 @@
     // Päivitä suunta täällä
 });
 
+        function placeFood(){
+            food = {
+                x: Math.floor(Math.random() * tileCount),
+                y: Math.floor(Math.random() * tileCount)
+            };
+            for (let i = 0; i < snake.length; i++) {
+                if (food.x === snake[i].x && food.y === snake[i].y) {
+                    placeFood(); 
+                    return;
+                }
+            }
+
+
+        }
+
 
         function moveSnake() {
         const head = snake[0];
@@ -98,10 +113,7 @@
     score++; 
     document.getElementById("info").textContent =
     `Pisteet: ${score}`;
-    food = {
-        x: Math.floor(Math.random() * tileCount),
-        y: Math.floor(Math.random() * tileCount)
-    };
+
 } else {snake.pop();}
 
 for (let i = 0; i < snake.length; i++) {
@@ -117,6 +129,8 @@ for (let i = 0; i < snake.length; i++) {
 
 
 snake.unshift(newHead);
+if (ateFood) {
+    placeFood();}
 
         drawGame();
     }
