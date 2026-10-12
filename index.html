@@ -15,6 +15,7 @@
     <h1>Snake</h1>
     <canvas id="gameCanvas" width="400" height="400"></canvas>
     <p id="info"></p>
+    <button id="restartButton">Aloita uudelleen</button>
 
     <script>
         // ===== GAME SETUP =====
@@ -119,6 +120,23 @@ snake.unshift(newHead);
 
         drawGame();
     }
+
+    document.getElementById("restartButton").addEventListener("click", function() {
+        gameOver = false;
+        snake = [
+            { x: 10, y: 10 },
+            { x: 9, y: 10 },
+            { x: 8, y: 10 }
+        ];
+        direction = { x: 1, y: 0 };
+        food = { x: 15, y: 15 };
+        score = 0;
+        document.getElementById("info").textContent = `Pisteet: ${score}`;
+        clearInterval(gameInterval);
+        drawGame();
+        gameInterval = setInterval(moveSnake, 150);
+
+});
 
     gameInterval = setInterval(moveSnake, 150);
 
