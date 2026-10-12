@@ -58,6 +58,20 @@
 
         drawGame();
 
+        function moveSnake() {
+        const head = snake[0];
+        const newHead = {
+            x: head.x + direction.x,
+            y: head.y + direction.y
+        };
+
+        snake.unshift(newHead);
+        snake.pop();
+        drawGame();
+    }
+
+    setInterval(moveSnake, 150);
+
         // ===================================
         // BUILD THE GAME FROM HERE
         // ===================================
