@@ -79,9 +79,14 @@
             x: head.x + direction.x,
             y: head.y + direction.y
         };
+        const ateFood = newHead.x === food.x && newHead.y === food.y;
+        if (ateFood) {
+    score++;
+} else {
+    snake.pop();
+}
+snake.unshift(newHead);
 
-        snake.unshift(newHead);
-        snake.pop();
         drawGame();
     }
 
