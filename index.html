@@ -56,6 +56,9 @@
                     gridSize, gridSize
                 );
             }
+             document.getElementById("info").textContent =
+    `Pisteet: ${score}`;
+
         };
 
         drawGame();
@@ -91,7 +94,10 @@
     
         const ateFood = newHead.x === food.x && newHead.y === food.y;
         if (ateFood) {
-    score++; food = {
+    score++; 
+    document.getElementById("info").textContent =
+    `Pisteet: ${score}`;
+    food = {
         x: Math.floor(Math.random() * tileCount),
         y: Math.floor(Math.random() * tileCount)
     };
