@@ -84,7 +84,9 @@
         };
         if(newHead.x < 0 || newHead.x >= tileCount || newHead.y < 0 || newHead.y >= tileCount){
             clearInterval(gameInterval); 
-            gameOver = true; 
+            gameOver = true;
+            document.getElementById("info").textContent =
+    `Peli päättyi! Pisteet: ${score}`; 
             return;}
     
         const ateFood = newHead.x === food.x && newHead.y === food.y;
@@ -100,6 +102,8 @@ for (let i = 0; i < snake.length; i++) {
     if (newHead.x === snake[i].x && newHead.y === snake[i].y) {
         clearInterval(gameInterval); 
         gameOver = true; 
+        document.getElementById("info").textContent =
+    `Peli päättyi! Pisteet: ${score}`;
         return;
     }
 }
