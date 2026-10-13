@@ -53,6 +53,7 @@
         let score = 0;
         let gameOver = false;
         let gameInterval;
+        let gameSpeed = 150; // Initial game speed in milliseconds
 
         // ===== DRAWING =====
         const drawGame = () => {
@@ -60,8 +61,8 @@
                 canvas.width, canvas.height);
 
                 if(score >= 40) {ctx.fillStyle = "black";}
-                    else if(score >= 30) {ctx.fillStyle = "darkred";}
-                    else if(score >= 20) {ctx.fillStyle = "red";}
+                    else if(score >= 30) {ctx.fillStyle = "darkgray";}
+                    else if(score >= 20) {ctx.fillStyle = "darkred";}
                     else if(score >= 10) {ctx.fillStyle = "brown";}
                     else {ctx.fillStyle = "yellow";}
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -166,6 +167,14 @@
         const ateFood = newHead.x === food.x && newHead.y === food.y;
         if (ateFood) {
     score++; 
+    if(score >= 40) {gameSpeed = 70;}
+        else if(score >= 30) {gameSpeed = 90;}
+        else if(score >= 20) {gameSpeed = 110;}
+        else if(score >= 10) {gameSpeed = 130;}
+        else {gameSpeed = 150;}
+    clearInterval(gameInterval);
+    gameInterval = setInterval(moveSnake, gameSpeed);
+                
     document.getElementById("info").textContent =
     `Pisteet: ${score}`;
 
@@ -200,17 +209,18 @@ if (ateFood) {
         direction = { x: 1, y: 0 };
         food = { x: 15, y: 15 };
         score = 0;
+        gameSpeed = 150;
         document.getElementById("info").textContent = `Pisteet: ${score}`;
         clearInterval(gameInterval);
         drawGame();
-        gameInterval = setInterval(moveSnake, 150);
+        gameInterval = setInterval(moveSnake, gameSpeed);
 
 });
 
     document.getElementById("startButton").addEventListener("click", function() {
         document.getElementById("startScreen").style.display = "none";
         if (!gameInterval) {
-            gameInterval = setInterval(moveSnake, 150);
+            gameInterval = setInterval(moveSnake, gameSpeed);
         }
     });
 
