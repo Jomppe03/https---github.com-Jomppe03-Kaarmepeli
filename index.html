@@ -8,12 +8,29 @@
         canvas {
             border: 1px solid black;
         }
+        .game-container {
+            position: relative;
+            display: inline-block;
+        }
+        #startScreen {
+            position: absolute;
+            inset: 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
 
     <h1>Snake</h1>
+    <div class="game-container">
     <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <div id="startScreen">
+        <button id="startButton">Start</button>
+    </div>
+</div>
     <p id="info"></p>
     <button id="restartButton">Aloita uudelleen</button>
 
@@ -181,7 +198,12 @@ if (ateFood) {
 
 });
 
-    gameInterval = setInterval(moveSnake, 150);
+    document.getElementById("startButton").addEventListener("click", function() {
+        document.getElementById("startScreen").style.display = "none";
+        if (!gameInterval) {
+            gameInterval = setInterval(moveSnake, 150);
+        }
+    });
 
         // ===================================
         // BUILD THE GAME FROM HERE
