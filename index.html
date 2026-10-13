@@ -54,6 +54,8 @@
         let gameOver = false;
         let gameInterval;
         let gameSpeed = 150; // Initial game speed in milliseconds
+        let nextDirection = direction; // Initialize nextDirection to the current direction
+        let canChangeDirection = true;
 
         // ===== DRAWING =====
         const drawGame = () => {
@@ -121,14 +123,19 @@
         drawGame();
         document.addEventListener("keydown", function(event){
             if (gameOver) return;
+            else if (!canChangeDirection) return;
             else if (event.key === "ArrowUp" && direction.y === 0) {
-                direction = { x: 0, y: -1 };
+                nextDirection = { x: 0, y: -1 };
+                canChangeDirection = false;
             } else if (event.key === "ArrowDown" && direction.y === 0) {
-                direction = { x: 0, y: 1 };
+                nextDirection = { x: 0, y: 1 };
+                canChangeDirection = false;
             } else if (event.key === "ArrowLeft" && direction.x === 0) {
-                direction = { x: -1, y: 0 };
+                nextDirection = { x: -1, y: 0 };
+                canChangeDirection = false;
             } else if (event.key === "ArrowRight" && direction.x === 0) {
-                direction = { x: 1, y: 0 };
+                nextDirection = { x: 1, y: 0 };
+                canChangeDirection = false;
             }
 
             // Tarkista painettu näppäin event.key-arvosta
@@ -152,6 +159,8 @@
 
 
         function moveSnake() {
+        direction = nextDirection;
+        canChangeDirection = true;
         const head = snake[0];
         const newHead = {
             x: head.x + direction.x,
@@ -210,6 +219,8 @@ if (ateFood) {
         food = { x: 15, y: 15 };
         score = 0;
         gameSpeed = 150;
+        nextDirection = direction;
+        canChangeDirection = true;
         document.getElementById("info").textContent = `Pisteet: ${score}`;
         clearInterval(gameInterval);
         drawGame();
