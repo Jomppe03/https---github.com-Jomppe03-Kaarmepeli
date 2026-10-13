@@ -59,6 +59,7 @@
 
         // ===== DRAWING =====
         const drawGame = () => {
+           const colorProgress = Math.min(score / 40, 1);
             ctx.clearRect(0, 0,
                 canvas.width, canvas.height);
 
@@ -74,9 +75,12 @@
                 food.y * gridSize,
                 gridSize, gridSize
             );
+            const red = Math.floor(255 * colorProgress);
+            const green = Math.floor(128 + 87 * colorProgress);
+            
 
             for (const segment of snake) {
-    ctx.fillStyle = "Green";
+    ctx.fillStyle = `rgb(${red}, ${green}, 0)`;
     ctx.fillRect(
                     segment.x * gridSize,
                     segment.y * gridSize,
