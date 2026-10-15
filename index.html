@@ -44,9 +44,9 @@
 
         // ===== INITIAL STATE =====
         let snake = [
-            { x: 10, y: 10 },
-            { x: 9, y: 10 },
-            { x: 8, y: 10 }
+            { x: 10, y: 10, color: "rgb(0, 128, 0)" },
+            { x: 9, y: 10, color: "rgb(0, 128, 0)" },
+            { x: 8, y: 10, color: "rgb(0, 128, 0)" }
         ];
         let direction = { x: 1, y: 0 };
         let food = { x: 15, y: 15 };
@@ -75,12 +75,15 @@
                 food.y * gridSize,
                 gridSize, gridSize
             );
-            const red = Math.floor(255 * colorProgress);
-            const green = Math.floor(128 + 87 * colorProgress);
+            //const red = Math.floor(255 * colorProgress);
+            //const green = Math.floor(128 + 87 * colorProgress);
             
 
-            for (const segment of snake) {
-    ctx.fillStyle = `rgb(${red}, ${green}, 0)`;
+            snake.forEach((segment, index) => {
+    const segmentProgress = colorProgress * (1 - index / (snake.length - 1));
+const red = Math.round(255 * segmentProgress);
+const green = Math.round(128 + 87 * segmentProgress);
+ctx.fillStyle = `rgb(${red}, ${green}, 0)`;
     ctx.fillRect(
                     segment.x * gridSize,
                     segment.y * gridSize,
@@ -113,9 +116,10 @@
                     } else if (direction.y === 1) {
                         ctx.fillStyle = "red";
                         ctx.fillRect(segment.x * gridSize + 9, segment.y * gridSize + gridSize, 2, 5);
-                    }      
-    }
-            }
+                    }
+                }
+                });      
+    
              document.getElementById("info").textContent =
     `Pisteet: ${score}`;
 
@@ -168,7 +172,8 @@
         const head = snake[0];
         const newHead = {
             x: head.x + direction.x,
-            y: head.y + direction.y
+            y: head.y + direction.y,
+            color: head.color
         };
         if(newHead.x < 0 || newHead.x >= tileCount || newHead.y < 0 || newHead.y >= tileCount){
             clearInterval(gameInterval); 
@@ -179,7 +184,8 @@
     
         const ateFood = newHead.x === food.x && newHead.y === food.y;
         if (ateFood) {
-    score++; 
+    score++;
+    newHead.color = `rgb(${Math.floor(0 + 255 * Math.min(score / 20, 1))}, ${Math.floor(128 + 87 * Math.min(score / 20, 1))}, 0)`; 
     if(score >= 40) {gameSpeed = 70;}
         else if(score >= 30) {gameSpeed = 90;}
         else if(score >= 20) {gameSpeed = 110;}
@@ -215,9 +221,9 @@ if (ateFood) {
     document.getElementById("restartButton").addEventListener("click", function() {
         gameOver = false;
         snake = [
-            { x: 10, y: 10 },
-            { x: 9, y: 10 },
-            { x: 8, y: 10 }
+            { x: 10, y: 10, color: "rgb(0, 128, 0)" },
+            { x: 9, y: 10, color: "rgb(0, 128, 0)" },
+            { x: 8, y: 10, color: "rgb(0, 128, 0)" }
         ];
         direction = { x: 1, y: 0 };
         food = { x: 15, y: 15 };
